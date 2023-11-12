@@ -11,7 +11,7 @@ const ProductDetails = () => {
     let pathArray = pathname.split("") /* put each character of the pathname in an array index */
     /* delete the first character from the 0 index which is a slash( / ) */
     pathArray.shift()
-    /*  */
+    /* put all the values of the array back to a string and store the resulting string in a variable*/
     let newPathArray = pathArray.join("")
     
     // creating an async function to wait for the async api call before returning the  value to use afterward with the useQuery of reac-query

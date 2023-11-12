@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export const fetchData = async (inputValue)=> {
 
@@ -6,7 +6,7 @@ export const fetchData = async (inputValue)=> {
     method: 'GET',
     url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch',
     params: {
-      query: inputValue || "pizza",
+      query: inputValue || "banana",
       diet: "vegetarian",
       type: 'main course',
       instructionsRequired: 'true',
@@ -27,11 +27,11 @@ export const fetchData = async (inputValue)=> {
 
   try {
     const response = await axios.request(options)
-    return response.data.results
-  } catch (error) {
-    console.error(error)
-    return error.message
-  }
+     return response.data.results
+  } catch (err) {
+    console.log(err.message)
+    return err
+  } 
 }
 
 export const fetchSingleRecipe = async (foodId)=> {
@@ -51,5 +51,5 @@ export const fetchSingleRecipe = async (foodId)=> {
     } 
   } catch(err) {
     console.log(err.message)
-  }
+  } 
 }

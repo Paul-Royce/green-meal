@@ -1,11 +1,12 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import { UserContextProvider } from "./context/UserContext";
+
+
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "./pages/Home";
 import Hero from "./components/Hero";
 import ProductDetails from "./pages/ProductDetails";
+import {QueryClientProvider, QueryClient} from "react-query"
+import { ApiContextProvider } from "./context/ApiContext";
+
 
 const router = createBrowserRouter([
   {
@@ -15,21 +16,32 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />
       },
-      {
-        path: ":id/details",
-        element: <ProductDetails />
-      }
     ]
+  },
+  {
+    path: ":id",
+    element: <ProductDetails />
   }
 ])
 
 function App() {
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 0,
+        cacheTime: 600000
+      }
+    }
+  })
+
   return (
-    <div className=" h-full bg-[brown]">
-      <UserContextProvider>
-        <RouterProvider router={router} />
-      </UserContextProvider>
+    <div className=" bg-[brown]">
+      <ApiContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </ApiContextProvider>
     </div>
   )
 }
